@@ -48,7 +48,7 @@ public class FrontEnd extends Application {
             public void handle(long currentTime){
                 long elapsedTime = currentTime - startTime;
                 int elapsedTimeInt = Math.toIntExact(elapsedTime / 1000000000);
-                switch(elapsedTimeInt){
+                switch(elapsedTimeInt){ //this doesn't work at all how I intended it to, I think instead the enemies should spawn at a fixed interval that increases as the levels get higher
                     case 0:
                         try {
                             game.startLevel(1);
