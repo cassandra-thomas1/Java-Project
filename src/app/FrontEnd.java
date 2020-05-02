@@ -2,7 +2,6 @@ package app;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -22,6 +21,7 @@ public class FrontEnd extends Application{
         Canvas canvas = new Canvas (540, 960);
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
         //Create and display scene
         Scene scene = new Scene(root);
         primaryStage.setTitle("Game");
@@ -40,20 +40,33 @@ public class FrontEnd extends Application{
                 });
 
         //loading assets
+        //pink background - https://wizardlyshoe4.s-ul.eu/JavaProject/wMSF3G0R
+        //blue background - https://wizardlyshoe4.s-ul.eu/JavaProject/GqiZaxYz
+        //red background - https://wizardlyshoe4.s-ul.eu/JavaProject/7gqo31wO
         Image ship = new Image(new URL("https://wizardlyshoe4.s-ul.eu/JavaProject/PcY9pXSJ").openStream());
         Image enemyShip = new Image(new URL("https://wizardlyshoe4.s-ul.eu/JavaProject/6ayA0vm0").openStream());
-        Image backGround = new Image(new URL("https://wizardlyshoe4.s-ul.eu/JavaProject/Njqkixku").openStream());
+        Image backGround = new Image(new URL("https://wizardlyshoe4.s-ul.eu/JavaProject/wMSF3G0R").openStream());
 
-        final long startNanoTime = System.nanoTime();
+        //final long startNanoTime = System.nanoTime();
+        final int[] itemCoords= {240, -4096};//value 1 is ship starting position, value 2 is background starting position
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-
-                gc.drawImage(backGround,0,0);
-                gc.drawImage(ship, 240, 850);
+                //double t = (currentNanoTime - startNanoTime) / 1000000000.0;//time variable that we can use to move enemy ships and stuff
+                if (itemCoords[1] == 0)
+                    itemCoords[1] = -4096;
+                itemCoords[1] += 1;
+                if (input.contains("LEFT") && itemCoords[0] > 0)
+                    itemCoords[0] -= 3;
+                else if (input.contains("RIGHT") && itemCoords[0] < 468)
+                    itemCoords[0] += 3;
+                //if (input.contains("SPACE"))
+                    //spawn the bullet and move it forward
+                gc.drawImage(backGround, 0, itemCoords[1]);
+                gc.drawImage(ship, itemCoords[0], 850);
                 gc.drawImage(enemyShip, 240, 0);
+
             }
         }.start();
 
