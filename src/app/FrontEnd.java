@@ -45,27 +45,25 @@ public class FrontEnd extends Application{
         Image ship = new Image(new URL("https://wizardlyshoe4.s-ul.eu/JavaProject/PcY9pXSJ").openStream());
         Image enemyShip = new Image(new URL("https://wizardlyshoe4.s-ul.eu/JavaProject/6ayA0vm0").openStream());
         Image backGround = new Image(new URL("https://wizardlyshoe4.s-ul.eu/JavaProject/wMSF3G0R").openStream());
-
+        Image bullet = new Image(new URL("https://wizardlyshoe4.s-ul.eu/JavaProject/fj4ed1FD").openStream());
         //final long startNanoTime = System.nanoTime();
         final int[] itemCoords= {240, -4096};//value 1 is ship starting position, value 2 is background starting position, I had to do it this way cause intellij told me to
         new AnimationTimer()//this is the game logic/ rendering, we should move this to the game class but I got carried away figuring stuff out tonight
         {
             public void handle(long currentNanoTime)
             {
-                //double t = (currentNanoTime - startNanoTime) / 1000000000.0;//time variable that we can use to move enemy ships and stuff
+                //we can just make a function called frame() or logic() in the game class and move all this into there and all that would happen in the handle function
+                //is it calling that function, I also realized a lot of people make sprites with their own functions so that not every entity has to be hard coded
+                //like this, this is really just my first attempt to get something working on the screen i'll improve it tomorrow or something
                 if (itemCoords[1] == 0)//if the background reaches the end of the image, loop back to the beginning
                     itemCoords[1] = -4096;
                 itemCoords[1] += 1;//each frame display the background 1 pixel up
                 if (input.contains("LEFT") && itemCoords[0] > 0)
                     itemCoords[0] -= 3; //if the user presses left on the keyboard, move the ship 3 pixels to the left during the current frame
-                else if (input.contains("RIGHT") && itemCoords[0] < 468)
+                if (input.contains("RIGHT") && itemCoords[0] < 468)
                     itemCoords[0] += 3; //if the user presses right on the keyboard, move the ship 3 frames to the right during the current frame
                 //if (input.contains("SPACE"))
-                    //spawn the bullet, bullet should spawn on the player x coordinate and y coordinate on the frame it spawns, and
-                    //maintain the same x coordinate while moving up some number of pixels per frame to determine the speed of the bullet (maybe 10 pixels)
-                //as for hit detection i'm fairly certain we'll be able to check every frame if the bullet image coordinates are in the same place
-                //(within x amount of pixels to account for the enemy ship hitbox) and if it does we just stop drawing the enemy ship and
-                //add whatever amount to the score
+
                 gc.drawImage(backGround, 0, itemCoords[1]);
                 gc.drawImage(ship, itemCoords[0], 850);
                 gc.drawImage(enemyShip, 240, 0);
