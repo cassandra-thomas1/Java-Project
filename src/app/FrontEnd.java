@@ -43,7 +43,7 @@ public class FrontEnd extends Application {
 
 
         final long startTime = System.nanoTime();
-        new AnimationTimer()//this is the game logic/ rendering, we should move this to the game class but I got carried away figuring stuff out tonight
+        new AnimationTimer()//game time
         {
             public void handle(long currentTime){
                 long elapsedTime = currentTime - startTime;
