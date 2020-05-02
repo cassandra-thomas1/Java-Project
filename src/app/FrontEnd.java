@@ -22,7 +22,7 @@ public class FrontEnd extends Application{
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        //loading asset
+        //loading assets
         Image test = new Image(new URL("https://wizardlyshoe4.s-ul.eu/3QeXMcHs").openStream());
         gc.drawImage(test, 0, 0);
 
