@@ -47,8 +47,7 @@ public class FrontEnd extends Application {
         {
             public void handle(long currentTime){
                 long elapsedTime = currentTime - startTime;
-                long elapsedTime2 = elapsedTime / 1000000000;
-                int elapsedTimeInt = Math.toIntExact(elapsedTime2);
+                int elapsedTimeInt = Math.toIntExact(elapsedTime / 1000000000);
                 switch(elapsedTimeInt){
                     case 0:
                         try {
