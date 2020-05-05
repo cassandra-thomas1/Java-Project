@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.net.URL;
 
+//comment this please I'm having a stroke reading it -.-
 public class Sprite {
     private Image image;
     private double xCoord;

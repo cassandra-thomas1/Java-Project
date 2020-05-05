@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
+//this needs to be commented too
 public class game {
     private static ArrayList<Sprite> enemyList = new ArrayList<Sprite>();
     private static Sprite playerShip;

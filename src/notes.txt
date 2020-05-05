@@ -2,3 +2,20 @@ Use multithreading to release the ships, storing enemy ships into a queue? or an
     -this means enemy ships have to be a separate class implementing runnable with a run method
 I think the laser should run automatically (I will create a timer for that)
 
+
+**I think we should approach the graphics as objects possibly and using the method calls in the main function**
+
+What needs Graphics classes
+    - background screen (so it halts when you die)
+    - enemy ships
+    - timer
+    - score count
+    - lasers: they will end up interacting with the enemy ships
+
+for background screen, we should think about a menu and a score board
+
+
+
+
+
+I know this is a lot but I want to secure an A in at least 1 class .-.
