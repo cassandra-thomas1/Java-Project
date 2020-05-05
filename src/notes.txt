@@ -1,0 +1,4 @@
+Use multithreading to release the ships, storing enemy ships into a queue? or any data structure idk
+    -this means enemy ships have to be a separate class implementing runnable with a run method
+I think the laser should run automatically (I will create a timer for that)
+
