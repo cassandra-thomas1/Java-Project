@@ -22,14 +22,17 @@ public class Sprite {
         rectangle = new Rectangle(xIn, yIn, widthIn, heightIn);
         rectangle.setFill(Color.RED);
     }
+
     public Sprite(double xIn, double yIn, String URLname) throws IOException {
         setPosition(xIn, yIn);
         image = new Image(new URL(URLname).openStream());
     }
+
     public boolean intersects(Sprite spriteIn)
     {
         return spriteIn.rectangle.intersects(rectangle.getBoundsInLocal());
     }
+
     public void setPosition(double xIn, double yIn)
     {
         xCoord = xIn;

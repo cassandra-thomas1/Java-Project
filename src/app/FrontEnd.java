@@ -57,26 +57,7 @@ public class FrontEnd extends Application {
                             e.printStackTrace();
                         }
                         break;
-                   /* case 30:
-                        try {
-                            game.startLevel(2);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case 60:
-                        try {
-                            game.startLevel(3);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case 90:
-                        try {
-                            game.startLevel(4);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }*/
+
                 }
                 try {
                     game.logic(gc, elapsedTime, input);
