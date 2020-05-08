@@ -1,10 +1,9 @@
 package app;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 
 public abstract class Sprite {
     private Image image;
@@ -16,12 +15,12 @@ public abstract class Sprite {
     private boolean alive = true;
 
     //constructor
-    public Sprite(double xIn, double yIn, double widthIn, double heightIn, String URLname) throws IOException {
+    public Sprite(double xIn, double yIn, double widthIn, double heightIn, String FileName) throws IOException {
         xCoord = xIn;
         yCoord = yIn;
         width = widthIn;
         height = heightIn;
-        image = new Image(new URL(URLname).openStream());
+        image = new Image(new FileInputStream(FileName));
         rectangle = new Rectangle(xIn, yIn, widthIn, heightIn);
     }
 
