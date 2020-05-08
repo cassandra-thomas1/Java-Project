@@ -51,3 +51,7 @@ public class game {
             playerShip.render(gc);
     }
 }
+
+/*
+
+ */
