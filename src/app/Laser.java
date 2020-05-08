@@ -9,8 +9,10 @@ public class Laser extends Sprite{
         super(xIn, yIn, widthIn, heightIn, FileName);
     }
 
+    //pre: takes in a double representing y-axis number
+    //post: player moves in the negative Y direction
     @Override
     void move(double rate) {
-        setYCoord(getY() - rate);       //lasers move in the negative Y direction
+        setYCoord(getY() - rate);
     }
 }

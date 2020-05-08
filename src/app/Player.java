@@ -7,8 +7,10 @@ public class Player extends Sprite{
         super(xIn, yIn, widthIn, heightIn, FileName);
     }
 
+    //pre: takes in a double representing x-axis number
+    //post: player moves across x-axis
     @Override
     void move(double rate) {
-        setXCoord(getX() + rate);       //player moves across x-axis
+        setXCoord(getX() + rate);
     }
 }

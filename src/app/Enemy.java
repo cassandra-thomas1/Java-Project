@@ -7,8 +7,10 @@ public class Enemy extends Sprite {
         super(xIn, yIn, widthIn, heightIn, FileName);
     }
 
+    //pre: takes in a double representing y-axis number
+    //post: player moves in the positive Y direction
     @Override
     void move(double rate) {
-        setYCoord(getY() + rate);       //Enemy ships move in the positive Y direction
+        setYCoord(getY() + rate);
     }
 }
