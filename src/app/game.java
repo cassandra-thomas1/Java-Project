@@ -1,5 +1,9 @@
 package app;
 
+/*
+REFORMAT AFTER SETTING UP ABSTRACT CLASSES
+
+ */
 import javafx.scene.canvas.GraphicsContext;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,8 +35,9 @@ public class game {
         }*/
     }
 
-    /*
+
     static void logic(GraphicsContext gc, long elapsedTime, ArrayList<String> input) throws IOException {
+        /*
         if (backGround.getY() == 0)
             backGround.setPosition(0, -4096);
         backGround.setPosition(0, backGround.getY() + 1);
@@ -50,9 +55,9 @@ public class game {
             }
         }
         if (playerShip.isAlive())
-            playerShip.render(gc);
+            playerShip.render(gc);*/
     }
 
-*/
+
 
 }
