@@ -4,21 +4,31 @@ import javafx.scene.canvas.GraphicsContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 //this needs to be commented too
 public class game {
+
     private static ArrayList<Sprite> enemyList = new ArrayList<Sprite>();
     private static Sprite playerShip;
     private static Sprite backGround;
     private static Random rand = new Random();
     private static int randomPos;
+
     public static void startLevel(int levelNumber) throws IOException {
         playerShip = new Sprite(240, 850, 72, 64, "https://wizardlyshoe4.s-ul.eu/JavaProject/PcY9pXSJ");
         backGround = new Sprite(0, -4096, "https://wizardlyshoe4.s-ul.eu/JavaProject/wMSF3G0R");
+
+        //this could be implemented using threads
+        /*
         for (int i = 0; i < levelNumber; ++i) {
             randomPos = rand.nextInt(240);
             Sprite enemyShip = new Sprite(randomPos, 0, 72, 64, "https://wizardlyshoe4.s-ul.eu/JavaProject/6ayA0vm0");
             enemyList.add(enemyShip);
-        }
+        }*/
     }
     static void logic(GraphicsContext gc, long elapsedTime, ArrayList<String> input) throws IOException {
         if (backGround.getY() == 0)
@@ -40,4 +50,7 @@ public class game {
         if (playerShip.isAlive())
             playerShip.render(gc);
     }
+
+
+
 }

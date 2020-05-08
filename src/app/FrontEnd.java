@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
 //loading assets
 //player ship - https://wizardlyshoe4.s-ul.eu/JavaProject/PcY9pXSJ
 //enemy ship - https://wizardlyshoe4.s-ul.eu/JavaProject/6ayA0vm0
@@ -55,24 +56,27 @@ public class FrontEnd extends Application {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    case 30:
+                        break;
+                   /* case 30:
                         try {
                             game.startLevel(2);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        break;
                     case 60:
                         try {
                             game.startLevel(3);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        break;
                     case 90:
                         try {
                             game.startLevel(4);
                         } catch (IOException e) {
                             e.printStackTrace();
-                        }
+                        }*/
                 }
                 try {
                     game.logic(gc, elapsedTime, input);
@@ -81,7 +85,6 @@ public class FrontEnd extends Application {
                 }
             }
         }.start();
-
 
         primaryStage.show();
     }
