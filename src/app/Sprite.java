@@ -1,4 +1,5 @@
 package app;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
@@ -28,7 +29,7 @@ public abstract class Sprite {
     //post: sees if the objects' hit-box have made contact, if so the sprite is killed
     public boolean intersects(Sprite spriteIn)
     {
-        return spriteIn.rectangle.intersects(rectangle.getBoundsInLocal());
+        return rectangle.intersects(spriteIn.getBounds());
     }
         // ^^NEEDS REVISION^^ \\
 
@@ -60,4 +61,6 @@ public abstract class Sprite {
 
     public double getHeight(){return height;}
     public double getWidth(){return width;}
+
+    private Bounds getBounds(){return rectangle.getBoundsInParent();}
 }
