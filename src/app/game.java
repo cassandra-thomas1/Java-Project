@@ -19,8 +19,8 @@ public class game {
     private static int randomPos;
 
     public static void startLevel(int levelNumber) throws IOException {
-        playerShip = new Sprite(240, 850, 72, 64, "https://wizardlyshoe4.s-ul.eu/JavaProject/PcY9pXSJ");
-        backGround = new Sprite(0, -4096, "https://wizardlyshoe4.s-ul.eu/JavaProject/wMSF3G0R");
+//   Needs to be a specified class     //playerShip = new Sprite(240, 850, 72, 64, "https://wizardlyshoe4.s-ul.eu/JavaProject/PcY9pXSJ");
+//   Needs to be a specified class         // backGround = new Sprite(0, -4096, "https://wizardlyshoe4.s-ul.eu/JavaProject/wMSF3G0R");
 
         //this could be implemented using threads
         /*
@@ -30,6 +30,8 @@ public class game {
             enemyList.add(enemyShip);
         }*/
     }
+
+    /*
     static void logic(GraphicsContext gc, long elapsedTime, ArrayList<String> input) throws IOException {
         if (backGround.getY() == 0)
             backGround.setPosition(0, -4096);
@@ -51,6 +53,6 @@ public class game {
             playerShip.render(gc);
     }
 
-
+*/
 
 }

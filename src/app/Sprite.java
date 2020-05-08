@@ -6,8 +6,7 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.net.URL;
 
-//comment this please I'm having a stroke reading it -.-
-public class Sprite {
+public abstract class Sprite {
     private Image image;
     private double xCoord;
     private double yCoord;
@@ -15,46 +14,37 @@ public class Sprite {
     private double height;
     private Rectangle rectangle;
     private boolean alive = true;
+
+    //constructor
     public Sprite(double xIn, double yIn, double widthIn, double heightIn, String URLname) throws IOException {
-        setPosition(xIn, yIn);
-        setDimensions(widthIn, heightIn);
+        xCoord = xIn;
+        yCoord = yIn;
+        width = widthIn;
+        height = heightIn;
         image = new Image(new URL(URLname).openStream());
         rectangle = new Rectangle(xIn, yIn, widthIn, heightIn);
-        rectangle.setFill(Color.RED);
     }
 
-    public Sprite(double xIn, double yIn, String URLname) throws IOException {
-        setPosition(xIn, yIn);
-        image = new Image(new URL(URLname).openStream());
-    }
-
+    //pre: 2 objects exist in the same y vicinity
+    //post: sees if the objects' hit-box have made contact, if so the sprite is killed
     public boolean intersects(Sprite spriteIn)
     {
         return spriteIn.rectangle.intersects(rectangle.getBoundsInLocal());
     }
+        // ^^NEEDS REVISION^^ \\
 
-    public void setPosition(double xIn, double yIn)
-    {
-        xCoord = xIn;
-        yCoord = yIn;
-    }
-    public void setDimensions(double widthIn, double heightIn)
-    {
-        width = widthIn;
-        height = heightIn;
-    }
-    public void move(double xIn, double yIn){
-        xCoord += xIn;
-        yCoord += yIn;
-        rectangle.setX(xCoord);
-        rectangle.setY(yCoord);
-    }
+
+    //pre: method is called in game
+    //post: position is incremented or decremented
+    abstract void move(double xIn, double yIn);
+
+    //pre:  sprite is loaded into the game
+    //post: displays sprite on the screen
     public void render(GraphicsContext gc){
         gc.drawImage(image, xCoord, yCoord);
     }
-    public void setImage(String URLname) throws IOException {
-        image = new Image(new URL(URLname).openStream());
-    }
+
+
     public boolean isAlive(){
         return alive;
     }
