@@ -35,7 +35,8 @@ public abstract class Sprite {
 
     //pre: method is called in game
     //post: position is incremented or decremented
-    abstract void move(double xIn, double yIn);
+    abstract void move(double rate);
+
 
     //pre:  sprite is loaded into the game
     //post: displays sprite on the screen
@@ -52,6 +53,11 @@ public abstract class Sprite {
     }
     public double getX(){return xCoord;}
     public double getY(){return yCoord;}
+
+    public void setXCoord(double xCoord) { this.xCoord = xCoord; }
+
+    public void setYCoord(double yCoord) { this.yCoord = yCoord; }
+
     public double getHeight(){return height;}
     public double getWidth(){return width;}
 }

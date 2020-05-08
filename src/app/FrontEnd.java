@@ -18,6 +18,10 @@ import javafx.stage.Stage;
 //blue background - https://wizardlyshoe4.s-ul.eu/JavaProject/ehyt3M7Y
 //red background - https://wizardlyshoe4.s-ul.eu/JavaProject/QM2S3Ttk
 
+
+
+//this class will call all the methods necessary to make the app run
+
 public class FrontEnd extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
