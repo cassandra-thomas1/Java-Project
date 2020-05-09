@@ -36,13 +36,13 @@ public class game {
             playerShip.move(-3);
         if (input.contains("RIGHT") && playerShip.getX() < 468)
             playerShip.move(3);
-        if (frames % 30 == 0) {
+        if (frames % 60 == 0) {
             Laser laser = new Laser(playerShip.getX() + 33, playerShip.getY() - 12, 4, 6, "Resources\\bullet.png");
             lasers.add(laser);
         }
 
-        if (frames % 3000 == 0) {
-            Enemy enemyShip = new Enemy(rand.nextInt(540), 0, 72, 64, "Resources\\EnemyShip.png");
+        if (frames % 90 == 0) {
+            Enemy enemyShip = new Enemy(rand.nextInt(540 - 72), 0 - 64, 72, 64, "Resources\\EnemyShip.png");
             enemyList.add(enemyShip);
         }
 
