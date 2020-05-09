@@ -35,8 +35,8 @@ public class game {
             playerShip.move(-3);
         if (input.contains("RIGHT") && playerShip.getX() < 468)
             playerShip.move(3);
-        if (elapsedTime % 1500000000 == 0) {
-            Laser laser = new Laser(playerShip.getX() + 33, playerShip.getY() - 12, 8, 12, "Resources\\bullet.png");
+        if (elapsedTime % 2 == 0) {
+            Laser laser = new Laser(playerShip.getX() + 33, playerShip.getY() - 12, 4, 10, "Resources\\bullet.png");
             lasers.add(laser);
         }
 

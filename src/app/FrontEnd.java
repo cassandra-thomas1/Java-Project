@@ -48,7 +48,8 @@ public class FrontEnd extends Application {
                 long elapsedTime = currentTime - startTime;
                 int elapsedTimeInt = Math.toIntExact(elapsedTime / 1000000000);
                 try {
-                    game.logic(gc, elapsedTime, input);
+                    System.out.println(elapsedTimeInt);
+                    game.logic(gc, elapsedTimeInt, input);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
