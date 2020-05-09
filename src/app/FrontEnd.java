@@ -47,11 +47,11 @@ public class FrontEnd extends Application {
             private long lastUpdate = 0;
             public void handle(long currentTime){
                 long elapsedTime = currentTime - startTime;
-                int elapsedTimeInt = Math.toIntExact(elapsedTime / 10000000);
+                int elapsedFrames = Math.toIntExact(elapsedTime / 16_670_000);
                 if (currentTime - lastUpdate >= 16_670_000) {
                     try {
-                        System.out.println(elapsedTimeInt);
-                        game.logic(gc, elapsedTimeInt, input);
+                        System.out.println(elapsedFrames);
+                        game.logic(gc, elapsedFrames, input);
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }

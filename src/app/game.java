@@ -31,17 +31,17 @@ public class game {
     }
 
 
-    static void logic(GraphicsContext gc, long elapsedTime, ArrayList<String> input) throws IOException, InterruptedException {
+    static void logic(GraphicsContext gc, long frames, ArrayList<String> input) throws IOException, InterruptedException {
         if (input.contains("LEFT") && playerShip.getX() > 0)
             playerShip.move(-3);
         if (input.contains("RIGHT") && playerShip.getX() < 468)
             playerShip.move(3);
-        if (elapsedTime % 2000 == 0) {
+        if (frames % 30 == 0) {
             Laser laser = new Laser(playerShip.getX() + 33, playerShip.getY() - 12, 4, 6, "Resources\\bullet.png");
             lasers.add(laser);
         }
 
-        if (elapsedTime % 3000 == 0) {
+        if (frames % 3000 == 0) {
             Enemy enemyShip = new Enemy(rand.nextInt(540), 0, 72, 64, "Resources\\EnemyShip.png");
             enemyList.add(enemyShip);
         }
