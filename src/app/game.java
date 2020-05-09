@@ -35,16 +35,18 @@ public class game {
             playerShip.move(-3);
         if (input.contains("RIGHT") && playerShip.getX() < 468)
             playerShip.move(3);
-        if (input.contains("SPACE")) {
+        if (elapsedTime % 1500000000 == 0) {
             Laser laser = new Laser(playerShip.getX() + 33, playerShip.getY() - 12, 8, 12, "Resources\\bullet.png");
             lasers.add(laser);
         }
+
+
         space.scroll();
         space.render(gc);
         for (Enemy enemyShip : enemyList ) {
             enemyShip.move(1);
             enemyShip.render(gc);
-            if (enemyShip.intersects(playerShip)) {
+            if (enemyShip.intersects(playerShip) || enemyShip.getY() > (playerShip.getY() + playerShip.getHeight())) {
                 enemyShip.kill();
                 playerShip.kill();
             }
@@ -56,16 +58,21 @@ public class game {
                 for (Enemy enemyShip : enemyList ){
                     if(enemyShip.intersects(laser)){
                         enemyShip.kill();
-                        enemyList.remove(enemyShip);
+                        laser.kill();
                     }
                 }
             }
             else{
-                lasers.remove(laser);
+                laser.kill();
             }
         }
-        if(playerShip.isAlive()) {
-            playerShip.render(gc);
-        }
+        playerShip.render(gc);
+
+    }
+
+
+    void levelEnd(){
+        enemyList.clear();
+        lasers.clear();
     }
 }

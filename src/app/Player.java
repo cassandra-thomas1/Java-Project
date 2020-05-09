@@ -8,9 +8,11 @@ public class Player extends Sprite{
     }
 
     //pre: takes in a double representing x-axis number
-    //post: player moves across x-axis
+    //post: if alive, player moves across x-axis
     @Override
     void move(double rate) {
-        setXCoord(getX() + rate);
+        if(isAlive()) {
+            setXCoord(getX() + rate);
+        }
     }
 }

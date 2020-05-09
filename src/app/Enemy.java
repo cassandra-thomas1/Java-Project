@@ -8,9 +8,11 @@ public class Enemy extends Sprite {
     }
 
     //pre: takes in a double representing y-axis number
-    //post: player moves in the positive Y direction
+    //post: if alive, player moves in the positive Y direction
     @Override
     void move(double rate) {
-        setYCoord(getY() + rate);
+        if(isAlive()) {
+            setYCoord(getY() + rate);
+        }
     }
 }

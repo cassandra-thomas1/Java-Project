@@ -42,7 +42,9 @@ public abstract class Sprite {
     //pre:  sprite is loaded into the game
     //post: displays sprite on the screen
     public void render(GraphicsContext gc){
-        gc.drawImage(image, xCoord, yCoord);
+        if(alive) {
+            gc.drawImage(image, xCoord, yCoord);
+        }
     }
 
     public void setXCoord(double xCoord) {
@@ -61,6 +63,7 @@ public abstract class Sprite {
     }
     public void kill(){
         alive = false;
+        rectangle = new Rectangle(-100, -100, 0, 0);
     }
     public double getX(){return xCoord;}
     public double getY(){return yCoord;}
