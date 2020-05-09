@@ -7,13 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Background {
-    private int yPosition;
-    private int startingPosition;
-    Image image;
+    private double yPosition;
+    private double startingPosition;
+    private Image image;
     public Background (String fileName) throws FileNotFoundException {
         image = new Image(new FileInputStream(fileName));
     }
-    public Background(String fileName, int yResolution) throws FileNotFoundException {
+    public Background(String fileName, double yResolution) throws FileNotFoundException {
         image = new Image(new FileInputStream(fileName));
         startingPosition = yResolution - 960;
         yPosition = startingPosition;
@@ -21,10 +21,10 @@ public class Background {
     public void scroll(){
         if (yPosition == 0)
             yPosition = startingPosition;
-        ++yPosition;
+        --yPosition;
     }
     public void render(GraphicsContext gc){
-        gc.drawImage(image, 0, yPosition);
+        gc.drawImage(image, 0, -yPosition);
     }
 }
 //if (backGround.getY() == 0)
