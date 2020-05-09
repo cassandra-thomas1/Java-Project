@@ -44,14 +44,17 @@ public class FrontEnd extends Application {
         }
         new AnimationTimer()//game time
         {
+            private long lastUpdate = 0;
             public void handle(long currentTime){
                 long elapsedTime = currentTime - startTime;
-                int elapsedTimeInt = Math.toIntExact(elapsedTime / 1000);
-                try {
-                    System.out.println(elapsedTimeInt);
-                    game.logic(gc, elapsedTimeInt, input);
-                } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
+                int elapsedTimeInt = Math.toIntExact(elapsedTime / 10000000);
+                if (currentTime - lastUpdate >= 16_670_000) {
+                    try {
+                        System.out.println(elapsedTimeInt);
+                        game.logic(gc, elapsedTimeInt, input);
+                    } catch (IOException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }.start();
