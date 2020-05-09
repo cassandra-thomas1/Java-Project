@@ -50,9 +50,22 @@ public class game {
             }
         }
         for (Laser laser : lasers){
-            laser.move(5);
-            laser.render(gc);
+            if(laser.getY() >= 0) {
+                laser.move(5);
+                laser.render(gc);
+                for (Enemy enemyShip : enemyList ){
+                    if(enemyShip.intersects(laser)){
+                        enemyShip.kill();
+                        enemyList.remove(enemyShip);
+                    }
+                }
+            }
+            else{
+                lasers.remove(laser);
+            }
         }
-        playerShip.render(gc);
+        if(playerShip.isAlive()) {
+            playerShip.render(gc);
+        }
     }
 }
