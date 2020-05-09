@@ -9,17 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
-//loading assets
-//player ship - https://wizardlyshoe4.s-ul.eu/JavaProject/PcY9pXSJ
-//enemy ship - https://wizardlyshoe4.s-ul.eu/JavaProject/6ayA0vm0
-//bullet - https://wizardlyshoe4.s-ul.eu/JavaProject/fj4ed1FD
-//pink background - https://wizardlyshoe4.s-ul.eu/JavaProject/wMSF3G0R
-//blue background - https://wizardlyshoe4.s-ul.eu/JavaProject/ehyt3M7Y
-//red background - https://wizardlyshoe4.s-ul.eu/JavaProject/QM2S3Ttk
-
-
-
 //this class will call all the methods necessary to make the app run
 
 public class FrontEnd extends Application {
@@ -31,37 +20,32 @@ public class FrontEnd extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         //Create and display scene
-        Scene scene = new Scene(root);
+        Scene gameRunning = new Scene(root);
+        //Scene mainMenu = new Scene(root);
+        //Scene scoreScreen = new Scene(root);
         primaryStage.setTitle("Space Game");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(gameRunning);
 
         ArrayList<String> input = new ArrayList<>();
-        scene.setOnKeyPressed(e -> { //obtain input from user
+        gameRunning.setOnKeyPressed(e -> { //obtain input from user
             String code = e.getCode().toString();
             if (!input.contains(code)) //only add input if one doesn't already exist
                 input.add(code);
         });
-        scene.setOnKeyReleased(e -> { //clear the input when key is not being pressed
+        gameRunning.setOnKeyReleased(e -> { //clear the input when key is not being pressed
             String code = e.getCode().toString();
             input.remove(code);
         });
-
-
         final long startTime = System.nanoTime();
         new AnimationTimer()//game time
         {
             public void handle(long currentTime){
                 long elapsedTime = currentTime - startTime;
                 int elapsedTimeInt = Math.toIntExact(elapsedTime / 1000000000);
-                switch(elapsedTimeInt){ //this doesn't work at all how I intended it to, I think instead the enemies should spawn at a fixed interval that increases as the levels get higher
-                    case 0:
-                        try {
-                            game.startLevel(1);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-
+                try {
+                    game.startLevel(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 try {
                     game.logic(gc, elapsedTime, input);
@@ -70,7 +54,6 @@ public class FrontEnd extends Application {
                 }
             }
         }.start();
-
         primaryStage.show();
     }
     public static void main(String[] args) {
