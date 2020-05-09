@@ -46,11 +46,11 @@ public class FrontEnd extends Application {
         {
             public void handle(long currentTime){
                 long elapsedTime = currentTime - startTime;
-                int elapsedTimeInt = Math.toIntExact(elapsedTime / 1000000000);
+                int elapsedTimeInt = Math.toIntExact(elapsedTime / 1000);
                 try {
                     System.out.println(elapsedTimeInt);
                     game.logic(gc, elapsedTimeInt, input);
-                } catch (IOException e) {
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }

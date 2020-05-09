@@ -21,6 +21,7 @@ public class game {
     private static Background space;
     private static Random rand = new Random();
     private static int randomPos;
+    private static Timer delay = new Timer();
 
     public static void startLevel(int levelNumber) throws IOException {
         playerShip = new Player(240, 850, 72, 64, "Resources\\PlayerShip.png");
@@ -30,14 +31,19 @@ public class game {
     }
 
 
-    static void logic(GraphicsContext gc, long elapsedTime, ArrayList<String> input) throws IOException {
+    static void logic(GraphicsContext gc, long elapsedTime, ArrayList<String> input) throws IOException, InterruptedException {
         if (input.contains("LEFT") && playerShip.getX() > 0)
             playerShip.move(-3);
         if (input.contains("RIGHT") && playerShip.getX() < 468)
             playerShip.move(3);
-        if (elapsedTime % 2 == 0) {
-            Laser laser = new Laser(playerShip.getX() + 33, playerShip.getY() - 12, 4, 10, "Resources\\bullet.png");
+        if (elapsedTime % 2000 == 0) {
+            Laser laser = new Laser(playerShip.getX() + 33, playerShip.getY() - 12, 4, 6, "Resources\\bullet.png");
             lasers.add(laser);
+        }
+
+        if (elapsedTime % 3000 == 0) {
+            Enemy enemyShip = new Enemy(rand.nextInt(540), 0, 72, 64, "Resources\\EnemyShip.png");
+            enemyList.add(enemyShip);
         }
 
 
