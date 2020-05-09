@@ -37,16 +37,16 @@ public class FrontEnd extends Application {
             input.remove(code);
         });
         final long startTime = System.nanoTime();
+        try {
+            game.startLevel(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         new AnimationTimer()//game time
         {
             public void handle(long currentTime){
                 long elapsedTime = currentTime - startTime;
                 int elapsedTimeInt = Math.toIntExact(elapsedTime / 1000000000);
-                try {
-                    game.startLevel(1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 try {
                     game.logic(gc, elapsedTime, input);
                 } catch (IOException e) {
