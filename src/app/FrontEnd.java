@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 //this class will call all the methods necessary to make the app run
-
+//hhhahahha
 public class FrontEnd extends Application {
     private Scene menuScene, scoreScene, gameScene;
     private boolean gameStart = false;
