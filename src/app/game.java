@@ -20,12 +20,15 @@ public class game {
     private static Random rand = new Random();
     private static int randomPos;
     private static long score = 0;
-    private static MovingText dispScore;
+    private static ScoreCounter dispScore;
+    private static long time = 0;
+    private static Timer dispTimer;
 
     public static void startLevel(int levelNumber) throws IOException {
         playerShip = new Player(240, 850, 72, 64, "Resources\\PlayerShip.png");
         Enemy enemyShip = new Enemy(240, 0, 72, 64, "Resources\\EnemyShip.png");
-        dispScore = new MovingText(20, 50, score);
+        dispScore = new ScoreCounter(50, 20, score);
+        dispTimer = new Timer(50, 40, time);
         enemyList.add(enemyShip);
         space = new Background("Resources\\BlueSpace.png", 5056);
     }
@@ -39,7 +42,13 @@ public class game {
         if (frames % 60 == 0) {
             Laser laser = new Laser(playerShip.getX() + 33, playerShip.getY() - 12, 4, 6, "Resources\\bullet.png");
             lasers.add(laser);
+
+            //update Timer
+            time += 1;
+            dispTimer.updateText(time);
         }
+
+
 
         if (frames % 90 == 0) {
             Enemy enemyShip = new Enemy(rand.nextInt(540 - 72), 0 - 64, 72, 64, "Resources\\EnemyShip.png");
@@ -82,6 +91,7 @@ public class game {
         }
         playerShip.render(gc);
         dispScore.render(gc);
+        dispTimer.render(gc);
 
     }
 

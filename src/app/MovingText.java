@@ -4,20 +4,18 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 
-public class MovingText {
+public abstract class MovingText {
     private double yPos, xPos;
     private String text;
-    GraphicsContext display;
 
-    public MovingText(double y, double x, long input){
+
+    public MovingText(double x, double y){
         yPos = y;
         xPos = x;
-        text = Long.toString(input);
-
     }
 
-    public void updateText(long input){
-        text = Long.toString(input);
+    public void updateText(String input){
+        text = input;
     }
 
     public void render(GraphicsContext gc){
