@@ -23,7 +23,7 @@ public class FrontEnd extends Application {
         Scene gameRunning = new Scene(root);
         //Scene mainMenu = new Scene(root);
         //Scene scoreScreen = new Scene(root);
-        primaryStage.setTitle("Space Game");
+        primaryStage.setTitle("Space Shooter");
         primaryStage.setScene(gameRunning);
 
         ArrayList<String> input = new ArrayList<>();
@@ -50,7 +50,6 @@ public class FrontEnd extends Application {
                 int elapsedFrames = Math.toIntExact(elapsedTime / 16_670_000);
                 if (currentTime - lastUpdate >= 16_670_000) {
                     try {
-                        System.out.println(elapsedFrames);
                         game.logic(gc, elapsedFrames, input);
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();

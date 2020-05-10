@@ -8,9 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 //this needs to be commented too
 public class game {
@@ -21,11 +19,13 @@ public class game {
     private static Background space;
     private static Random rand = new Random();
     private static int randomPos;
-    private static Timer delay = new Timer();
+    private static long score = 0;
+    private static MovingText dispScore;
 
     public static void startLevel(int levelNumber) throws IOException {
         playerShip = new Player(240, 850, 72, 64, "Resources\\PlayerShip.png");
         Enemy enemyShip = new Enemy(240, 0, 72, 64, "Resources\\EnemyShip.png");
+        dispScore = new MovingText(20, 50, score);
         enemyList.add(enemyShip);
         space = new Background("Resources\\BlueSpace.png", 5056);
     }
@@ -44,6 +44,11 @@ public class game {
         if (frames % 90 == 0) {
             Enemy enemyShip = new Enemy(rand.nextInt(540 - 72), 0 - 64, 72, 64, "Resources\\EnemyShip.png");
             enemyList.add(enemyShip);
+        }
+
+        if(frames % 120 == 0){
+            score += 10;
+            dispScore.updateText(score);
         }
 
 
@@ -65,6 +70,9 @@ public class game {
                     if(enemyShip.intersects(laser)){
                         enemyShip.kill();
                         laser.kill();
+                        enemyList.remove(enemyShip);
+                        score += 50;
+                        dispScore.updateText(score);
                     }
                 }
             }
@@ -73,11 +81,17 @@ public class game {
             }
         }
         playerShip.render(gc);
+        dispScore.render(gc);
 
     }
 
 
-    void levelEnd(){
+
+    static long getScore(){
+        return score;
+    }
+
+    static void levelEnd(){
         enemyList.clear();
         lasers.clear();
     }
