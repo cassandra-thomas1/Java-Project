@@ -13,10 +13,9 @@ public class Timer extends MovingText {
     }
 
     public void updateText(long input) {
-//        if(input >= 60){
-//            minute = input / 60;
-//            second = input % 60;
-//        }
+            minute = input / 60;
+            second = input % 60;
+
         if(second < 10){
             super.updateText(minute + ":0" + second);
         }
