@@ -3,6 +3,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 
 import javafx.animation.AnimationTimer;
@@ -83,30 +85,36 @@ public class FrontEnd extends Application {
         Button toMenu = new Button("Main Menu");
         toMenu.setOnAction(e->primaryStage.setScene(menuScene));
         //create table
-        table.setEditable(true);
-        TableColumn playerColumn = new TableColumn("Player");
+
+        TextField playerColumn = new TextField("Player");
         playerColumn.setMinWidth(100);
-        TableColumn scoreColumn = new TableColumn("Score");
+        TextField scoreColumn = new TextField("Score");
         scoreColumn.setMinWidth(100);
-        TableColumn timeColumn = new TableColumn("Time");
+        TextField timeColumn = new TextField("Time");
         timeColumn.setMinWidth(100);
-        TableColumn shipsKilledColumn = new TableColumn("Ships Killed");
+        TextField shipsKilledColumn = new TextField("Ships Killed");
         shipsKilledColumn.setMinWidth(100);
-        table.getColumns().addAll(playerColumn, scoreColumn, timeColumn, shipsKilledColumn);
+
 
         //create and populate score vbox
         VBox scoreOptions = new VBox();
-        scoreOptions.getChildren().addAll(scoreMenu, table, toMenu);
+        scoreOptions.getChildren().addAll(scoreMenu, new HBox(playerColumn, scoreColumn, timeColumn, shipsKilledColumn));
         scoreOptions.setMaxWidth(400);
         scoreOptions.setMaxHeight(200);
 
-       for(Score s : scores){
-            TableRow playerScore = new TableRow();
 
-
-           // scoreOptions.getChildren().add(new HBox(new TextField(s.getPlayerName()), new TextField(Long.toString(s.getScore())),
-            //        new TextField(Long.toString(s.getTime())), new TextField(Long.toString(s.getShipsKilled()))));
+        int count = 0;      //counter for the loop
+        Collections.sort(scores);
+        //adds top 5 scores to the scoreboard
+        for(Score s : scores){
+            if(count < 5) {
+                scoreOptions.getChildren().add(new HBox(new TextField(s.getPlayerName()), new TextField(Long.toString(s.getScore())),
+                        new TextField(Long.toString(s.getTime())), new TextField(Long.toString(s.getShipsKilled()))));
+                count++;
+            }
         }
+
+        scoreOptions.getChildren().add(toMenu);
 
         //create and populate stackpane
         StackPane scoreBox = new StackPane();
@@ -115,12 +123,8 @@ public class FrontEnd extends Application {
         scoreBox.getChildren().addAll(imageView2, scoreOptions);
         //set scene
 
-
         scoreScene = new Scene(scoreBox, 540, 960);
 
-
-
-        //
         primaryStage.setScene(menuScene);
 
         ArrayList<String> input = new ArrayList<>();
@@ -134,30 +138,29 @@ public class FrontEnd extends Application {
             input.remove(code);
         });
         final long startTime = System.nanoTime();
-            new AnimationTimer()//game time
-            {
-                public void handle(long currentTime) {
-                    long elapsedTime = currentTime - startTime;
-                    int elapsedFrames = Math.toIntExact(elapsedTime / 16_670_000);
-                    long lastUpdate = 0;
-                    if (currentTime - lastUpdate >= 16_670_000 && gameStart) {
-                        try {
-                            game.logic(gc, elapsedFrames, input);
-                            if (!game.running()){
-                                gameStart = false;
-                                try {
-                                    DB.add(new Score(playerName, game.getScore(), game.getTime(), game.getShipsKilled()));
-                                }catch (SQLException e){
-                                    System.out.println("Error Adding to DB");}
+        new AnimationTimer()//game time
+        {
+            public void handle(long currentTime) {
+                long elapsedTime = currentTime - startTime;
+                int elapsedFrames = Math.toIntExact(elapsedTime / 16_670_000);
+                long lastUpdate = 0;
+                if (currentTime - lastUpdate >= 16_670_000 && gameStart) {
+                    try {
+                        game.logic(gc, elapsedFrames, input);
+                        if (!game.running()){
+                            gameStart = false;
+                            try {
+                                DB.add(new Score(playerName, game.getScore(), game.getTime(), game.getShipsKilled()));
+                            }catch (SQLException e){}
 
-                                primaryStage.setScene(scoreScene);
-                            }
-                        } catch (IOException | ConcurrentModificationException e) {
-                            e.printStackTrace();
+                            primaryStage.setScene(scoreScene);
                         }
+                    } catch (IOException | ConcurrentModificationException e) {
+                        e.printStackTrace();
                     }
                 }
-            }.start();
+            }
+        }.start();
         primaryStage.show();
     }
     public static void main(String[] args) throws SQLException {
