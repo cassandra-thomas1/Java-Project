@@ -19,11 +19,11 @@ public class game {
     private static Sprite playerShip;
     private static Background space;
     private static Random rand = new Random();
-    private static int randomPos;
     private static long score = 0;
     private static ScoreCounter dispScore;
     private static long time = 0;
     private static Timer dispTimer;
+    private static int shipsKilled = 0;
 
     public static void startLevel() throws IOException {
         playerShip = new Player(240, 850, 72, 64, "Resources\\PlayerShip.png");
@@ -83,6 +83,7 @@ public class game {
                         enemyList.remove(enemyShip);
                         score += 50;
                         dispScore.updateText(score);
+                        shipsKilled++;
                     }
                 }
             }
@@ -106,6 +107,10 @@ public class game {
     static long getScore(){
         return score;
     }
+
+    static long getTime() {return time;}
+
+    static int getShipsKilled(){ return shipsKilled;}
 
     static void levelEnd(){
         enemyList.clear();
