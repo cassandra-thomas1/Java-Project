@@ -2,10 +2,10 @@ package app;
 
 public class Score {
     private String playerName;
-    private int score;
-    private int time;
-    private int shipsKilled;
-    public Score(String playerName, int score, int time, int shipsKilled){
+    private long score;
+    private long time;
+    private long shipsKilled;
+    public Score(String playerName, long score, long time, long shipsKilled){
         setPlayerName(playerName);
         setScore(score);
         setTime(time);
@@ -14,25 +14,25 @@ public class Score {
     public void setPlayerName(String playerName){
         this.playerName = playerName;
     }
-    public void setScore(int score){
+    public void setScore(long score){
         this.score = score;
     }
-    public void setTime(int time){
+    public void setTime(long time){
         this.time = time;
     }
-    public void setShipsKilled(int shipsKilled){
+    public void setShipsKilled(long shipsKilled){
         this.shipsKilled = shipsKilled;
     }
     public String getPlayerName(){
         return playerName;
     }
-    public int getScore(){
+    public long getScore(){
         return score;
     }
-    public int getTime(){
+    public long getTime(){
         return time;
     }
-    public int getShipsKilled(){
+    public long getShipsKilled(){
         return shipsKilled;
     }
 }

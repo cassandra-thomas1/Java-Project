@@ -10,9 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -21,6 +19,8 @@ import javafx.stage.Stage;
 //this class will call all the methods necessary to make the app run
 //hhhahahha
 public class FrontEnd extends Application {
+    private ArrayList scores = new ArrayList;
+    private TableView<Score> table = new TableView<>();
     private String playerName;
     private Scene menuScene, scoreScene, gameScene, nameScene;
     private boolean gameStart = false;
@@ -28,8 +28,10 @@ public class FrontEnd extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Space Shooter");
         //main menu button actions
+        TextField nameEntry = new TextField();
         EventHandler<ActionEvent> startGame = e -> {
             gameStart = true;
+            playerName = nameEntry.getText();
             primaryStage.setScene(gameScene);
             try {
                 game.startLevel();
@@ -42,10 +44,9 @@ public class FrontEnd extends Application {
         ImageView imageView2 = new ImageView(new Image(new FileInputStream("Resources\\background.png")));
 
         Label namePls = new Label("Name: ");
-        namePls.setStyle("-fx-text-fill: #00ffbb;");
+        namePls.setStyle("-fx-text-fill: #00ffbd;");
         Button toGame = new Button("Start game");
         Button toScore = new Button("High scores");
-        TextField nameEntry = new TextField();
         toGame.setOnAction(startGame);
         toScore.setOnAction(e->primaryStage.setScene(scoreScene));
         VBox menuOptions = new VBox();
@@ -66,18 +67,33 @@ public class FrontEnd extends Application {
         gameScene = new Scene(gamePane);
 
         //score screen
+        //labels, buttons, and event handlers
         Label scoreMenu = new Label("High Scores");
-        scoreMenu.setStyle("-fx-text-fill: #00ffbb;");
+        scoreMenu.setStyle("-fx-text-fill: #00ffbd;");
         Button toMenu = new Button("Main Menu");
         toMenu.setOnAction(e->primaryStage.setScene(menuScene));
+        //create table
+        table.setEditable(true);
+        TableColumn playerColumn = new TableColumn("Player");
+        playerColumn.setMinWidth(100);
+        TableColumn scoreColumn = new TableColumn("Score");
+        scoreColumn.setMinWidth(100);
+        TableColumn timeColumn = new TableColumn("Time");
+        timeColumn.setMinWidth(100);
+        TableColumn shipsKilledColumn = new TableColumn("Ships Killed");
+        shipsKilledColumn.setMinWidth(100);
+        table.getColumns().addAll(playerColumn, scoreColumn, timeColumn, shipsKilledColumn);
+        //create and populate vbox
         VBox scoreOptions = new VBox();
-        scoreOptions.getChildren().addAll(scoreMenu, toMenu);
-        scoreOptions.setMaxWidth(200);
-        scoreOptions.setMaxHeight(100);
+        scoreOptions.getChildren().addAll(scoreMenu, table, toMenu);
+        scoreOptions.setMaxWidth(400);
+        scoreOptions.setMaxHeight(200);
+        //create and populate stackpane
         StackPane scoreBox = new StackPane();
         StackPane.setAlignment(scoreBox, Pos.CENTER);
         scoreBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         scoreBox.getChildren().addAll(imageView2, scoreOptions);
+        //set scene
         scoreScene = new Scene(scoreBox, 540, 960);
 
         //
@@ -105,6 +121,7 @@ public class FrontEnd extends Application {
                             game.logic(gc, elapsedFrames, input);
                             if (!game.running()){
                                 gameStart = false;
+                                scores.add(new Score(playerName, game.getScore(), game.getTime(), game.getShipsKilled()));
                                 primaryStage.setScene(scoreScene);
                             }
                         } catch (IOException | InterruptedException e) {
