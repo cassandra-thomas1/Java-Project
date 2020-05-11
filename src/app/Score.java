@@ -5,14 +5,22 @@ public class Score {
     private int score;
     private int time;
     private int shipsKilled;
-    Score(int playerName, int score, int time, int shipsKilled){
-
+    public Score(String playerName, int score, int time, int shipsKilled){
+        setPlayerName(playerName);
+        setScore(score);
+        setTime(time);
+        setShipsKilled(shipsKilled);
     }
-    void setPlayerName(String playerName){
+    public void setPlayerName(String playerName){
         this.playerName = playerName;
     }
-    void setScore(int score){
+    public void setScore(int score){
         this.playerName = playerName;
     }
-    void setTime(int )
+    public void setTime(int time){
+        this.time = time;
+    }
+    public void setShipsKilled(int shipsKilled){
+        this.shipsKilled = shipsKilled;
+    }
 }
