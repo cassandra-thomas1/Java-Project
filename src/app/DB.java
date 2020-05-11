@@ -28,9 +28,11 @@ public class DB {
             //iterate the DB file and creates new score instances
             while (returned.next()){
                allScores.add(new Score(returned.getString("username"), returned.getInt("score"),
-                       returned.getInt("timealive"), returned.getInt("shipsdestroyed")));
-            }
+                       returned.getInt("timeailve"), returned.getInt("shipsdestroyed")));
 
+               System.out.println(returned.getString("username") + " " + returned.getInt("score"));
+            }
+            gameConn.close();
         }catch (SQLException ex){
             ex.printStackTrace();
         }
@@ -41,8 +43,23 @@ public class DB {
 
     static void add(Score s) throws SQLException {
         allScores.add(s);
-        myStatement.executeUpdate("insert into scores values("+ s.getScore() +"," + s.getPlayerName()
-                + "," + s.getTime() +"," + s.getShipsKilled() +")");
+
+        //INSERT INTO scores VALUES(500, "beep", 30, 3)
+        gameConn = DriverManager.getConnection(url, user, password);
+
+        String statement = "INSERT INTO scores" + " (score, username, timeailve, shipsdestroyed)"
+                +" VALUES ("+ s.getScore() +", " + s.getPlayerName()
+                + ", " + s.getTime() +", " + s.getShipsKilled() +")";
+        System.out.println(statement);
+
+        Statement add = gameConn.createStatement();
+
+        add.executeUpdate(statement);
+
+        while (returned.next()){
+            System.out.println(returned.getString("username") + " " + returned.getInt("score"));
+        }
+        gameConn.close();
     }
 
     static void close() throws SQLException {
