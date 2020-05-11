@@ -1,38 +1,55 @@
 package app;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 //this class will call all the methods necessary to make the app run
 //hhhahahha
 public class FrontEnd extends Application {
+    private String playerName;
     private Scene menuScene, scoreScene, gameScene;
     private boolean gameStart = false;
     @Override
     public void start(Stage primaryStage) throws IOException {
-        primaryStage.setTitle("video games lmao");
+        primaryStage.setTitle("Space Shooter");
         //main menu button actions
         EventHandler<ActionEvent> startGame = e -> {
             gameStart = true;
             primaryStage.setScene(gameScene);
         };
         //main menu
-        Label menuLabel = new Label("Main Menu");
+        //BackgroundImage background = new BackgroundImage(new Image(new FileInputStream("Resources\\backGround.png"))
+        //        , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        ImageView imageView = new ImageView(new Image(new FileInputStream("Resources\\background.png")));
+        Label namePls = new Label("Name: ");
+        namePls.setStyle("-fx-text-fill: #00ffbd;");
         Button toGame = new Button("Start game");
+        TextField nameEntry = new TextField();
         toGame.setOnAction(startGame);
-        VBox menuBox = new VBox(20);
-        menuBox.getChildren().addAll(menuLabel, toGame);
+        VBox elements = new VBox();
+        elements.getChildren().addAll(namePls, nameEntry, toGame);
+        elements.setMaxWidth(200);
+        elements.setMaxHeight(100);
+        StackPane menuBox = new StackPane();
+        StackPane.setAlignment(menuBox, Pos.CENTER);
+        menuBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+        menuBox.getChildren().addAll(imageView, elements);
         menuScene = new Scene(menuBox, 540, 960);
 
         //game scene
@@ -87,6 +104,9 @@ public class FrontEnd extends Application {
                 }
             }.start();
         primaryStage.show();
+    }
+    public String getPlayerName(){
+        return playerName;
     }
     public static void main(String[] args) {
         launch(args);
