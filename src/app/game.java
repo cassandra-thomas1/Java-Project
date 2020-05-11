@@ -15,6 +15,7 @@ public class game {
 
     private static ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
     private static ArrayList<Laser> lasers = new ArrayList<Laser>();
+    private static String[] backgrounds = new String[] {"Resources\\BlueSpace.png", "Resources\\ResSpace.png", "Resources\\PinkSpace.png"};
     private static Sprite playerShip;
     private static Background space;
     private static Random rand = new Random();
@@ -30,7 +31,7 @@ public class game {
         dispScore = new ScoreCounter(50, 20, score);
         dispTimer = new Timer(50, 40, time);
         enemyList.add(enemyShip);
-        space = new Background("Resources\\BlueSpace.png", 5056);
+        space = new Background(backgrounds[rand.nextInt(3)], 5056);
     }
 
 
@@ -95,7 +96,12 @@ public class game {
 
     }
 
-
+    static boolean running(){
+        if(!playerShip.isAlive()){
+            levelEnd();
+        }
+        return playerShip.isAlive();
+    }
 
     static long getScore(){
         return score;
