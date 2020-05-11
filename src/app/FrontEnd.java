@@ -33,7 +33,7 @@ public class FrontEnd extends Application {
         toGame.setOnAction(startGame);
         VBox menuBox = new VBox(20);
         menuBox.getChildren().addAll(menuLabel, toGame);
-        menuScene = new Scene(menuBox, 300, 250);
+        menuScene = new Scene(menuBox, 540, 960);
 
         //game scene
         Pane gamePane = new Pane();
