@@ -15,12 +15,24 @@ public class Score {
         this.playerName = playerName;
     }
     public void setScore(int score){
-        this.playerName = playerName;
+        this.score = score;
     }
     public void setTime(int time){
         this.time = time;
     }
     public void setShipsKilled(int shipsKilled){
         this.shipsKilled = shipsKilled;
+    }
+    public String getPlayerName(){
+        return playerName;
+    }
+    public int getScore(){
+        return score;
+    }
+    public int getTime(){
+        return time;
+    }
+    public int getShipsKilled(){
+        return shipsKilled;
     }
 }
