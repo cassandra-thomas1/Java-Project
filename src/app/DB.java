@@ -29,8 +29,6 @@ public class DB {
             while (returned.next()){
                allScores.add(new Score(returned.getString("username"), returned.getInt("score"),
                        returned.getInt("timeailve"), returned.getInt("shipsdestroyed")));
-
-               System.out.println(returned.getString("username") + " " + returned.getInt("score"));
             }
             gameConn.close();
         }catch (SQLException ex){
@@ -50,15 +48,11 @@ public class DB {
         String statement = "INSERT INTO scores" + " (score, username, timeailve, shipsdestroyed)"
                 +" VALUES ("+ s.getScore() +", " + s.getPlayerName()
                 + ", " + s.getTime() +", " + s.getShipsKilled() +")";
-        System.out.println(statement);
 
         Statement add = gameConn.createStatement();
 
         add.executeUpdate(statement);
 
-        while (returned.next()){
-            System.out.println(returned.getString("username") + " " + returned.getInt("score"));
-        }
         gameConn.close();
     }
 
