@@ -6,15 +6,24 @@ import java.util.ArrayList;
 public class DB {
     private static Connection gameConn;
     private static ArrayList<Score> allScores = new ArrayList<Score>();
+    private static String url;
+    private static  String user;
+    private static  String password;
+
+    private static Statement myStatement;
+    private static ResultSet returned;
+
     static ArrayList<Score> access() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/appdata";
-        String user = "root";
-        String password = "Password";
+        url = "jdbc:mysql://localhost:3306/appdata";
+        user = "root";
+        password = "Password";
+
+
         try{
             //access the DB using parameters above
             gameConn = DriverManager.getConnection(url, user, password);
-            Statement myStatement = gameConn.createStatement();
-            ResultSet returned = myStatement.executeQuery("select * from appdata.scores");
+            myStatement = gameConn.createStatement();
+            returned = myStatement.executeQuery("select * from appdata.scores");
 
             //iterate the DB file and creates new score instances
             while (returned.next()){
@@ -28,6 +37,12 @@ public class DB {
 
 
         return allScores;
+    }
+
+    static void add(Score s) throws SQLException {
+        allScores.add(s);
+        myStatement.executeUpdate("insert into scores values("+ s.getScore() +"," + s.getPlayerName()
+                + "," + s.getTime() +"," + s.getShipsKilled() +")");
     }
 
     static void close() throws SQLException {
