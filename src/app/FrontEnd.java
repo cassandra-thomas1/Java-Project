@@ -1,6 +1,7 @@
 package app;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -19,7 +20,7 @@ import javafx.stage.Stage;
 //this class will call all the methods necessary to make the app run
 //hhhahahha
 public class FrontEnd extends Application {
-    private ArrayList scores = new ArrayList;
+    private ArrayList<Score> scores = new ArrayList<Score>();
     private TableView<Score> table = new TableView<>();
     private String playerName;
     private Scene menuScene, scoreScene, gameScene, nameScene;
@@ -121,7 +122,9 @@ public class FrontEnd extends Application {
                             game.logic(gc, elapsedFrames, input);
                             if (!game.running()){
                                 gameStart = false;
-                                scores.add(new Score(playerName, game.getScore(), game.getTime(), game.getShipsKilled()));
+                                try {
+                                    DB.add(new Score(playerName, game.getScore(), game.getTime(), game.getShipsKilled()));
+                                }catch (SQLException e){}
                                 primaryStage.setScene(scoreScene);
                             }
                         } catch (IOException | InterruptedException e) {
