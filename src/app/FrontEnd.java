@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 //hhhahahha
 public class FrontEnd extends Application {
     private String playerName;
-    private Scene menuScene, scoreScene, gameScene;
+    private Scene menuScene, scoreScene, gameScene, nameScene;
     private boolean gameStart = false;
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -33,23 +33,25 @@ public class FrontEnd extends Application {
             gameStart = true;
             primaryStage.setScene(gameScene);
         };
-        //main menu
-        //BackgroundImage background = new BackgroundImage(new Image(new FileInputStream("Resources\\backGround.png"))
-        //        , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        //menu Background
         ImageView imageView = new ImageView(new Image(new FileInputStream("Resources\\background.png")));
+        ImageView imageView2 = new ImageView(new Image(new FileInputStream("Resources\\background.png")));
+
         Label namePls = new Label("Name: ");
         namePls.setStyle("-fx-text-fill: #00ffbb;");
         Button toGame = new Button("Start game");
+        Button toScore = new Button("High scores");
         TextField nameEntry = new TextField();
         toGame.setOnAction(startGame);
-        VBox elements = new VBox();
-        elements.getChildren().addAll(namePls, nameEntry, toGame);
-        elements.setMaxWidth(200);
-        elements.setMaxHeight(100);
+        toScore.setOnAction(e->primaryStage.setScene(scoreScene));
+        VBox menuOptions = new VBox();
+        menuOptions.getChildren().addAll(namePls, nameEntry, toGame, toScore);
+        menuOptions.setMaxWidth(200);
+        menuOptions.setMaxHeight(100);
         StackPane menuBox = new StackPane();
         StackPane.setAlignment(menuBox, Pos.CENTER);
         menuBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
-        menuBox.getChildren().addAll(imageView, elements);
+        menuBox.getChildren().addAll(imageView, menuOptions);
         menuScene = new Scene(menuBox, 540, 960);
 
         //game scene
@@ -63,8 +65,14 @@ public class FrontEnd extends Application {
         Label scoreMenu = new Label("High Scores");
         Button toMenu = new Button("Main Menu");
         toMenu.setOnAction(e->primaryStage.setScene(menuScene));
-        VBox scoreBox = new VBox(20);
-        scoreBox.getChildren().addAll(scoreMenu, toMenu);
+        VBox scoreOptions = new VBox();
+        scoreOptions.getChildren().addAll(scoreMenu, toMenu);
+        scoreOptions.setMaxWidth(200);
+        scoreOptions.setMaxHeight(100);
+        StackPane scoreBox = new StackPane();
+        StackPane.setAlignment(scoreBox, Pos.CENTER);
+        scoreBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+        scoreBox.getChildren().addAll(imageView2, scoreOptions);
         scoreScene = new Scene(scoreBox, 540, 960);
 
         //
