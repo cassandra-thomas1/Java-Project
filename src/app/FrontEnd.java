@@ -38,7 +38,7 @@ public class FrontEnd extends Application {
         //        , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         ImageView imageView = new ImageView(new Image(new FileInputStream("Resources\\background.png")));
         Label namePls = new Label("Name: ");
-        namePls.setStyle("-fx-text-fill: #00ffbd;");
+        namePls.setStyle("-fx-text-fill: #00ffbb;");
         Button toGame = new Button("Start game");
         TextField nameEntry = new TextField();
         toGame.setOnAction(startGame);
