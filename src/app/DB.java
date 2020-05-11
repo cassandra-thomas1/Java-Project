@@ -29,6 +29,8 @@ public class DB {
             while (returned.next()){
                allScores.add(new Score(returned.getString("username"), returned.getInt("score"),
                        returned.getInt("timeailve"), returned.getInt("shipsdestroyed")));
+
+                System.out.println(returned.getString("username") + " " + returned.getInt("score"));
             }
             gameConn.close();
         }catch (SQLException ex){
@@ -46,8 +48,8 @@ public class DB {
         gameConn = DriverManager.getConnection(url, user, password);
 
         String statement = "INSERT INTO scores" + " (score, username, timeailve, shipsdestroyed)"
-                +" VALUES ("+ s.getScore() +", " + s.getPlayerName()
-                + ", " + s.getTime() +", " + s.getShipsKilled() +")";
+                +" VALUES ("+ s.getScore() +", '" + s.getPlayerName()
+                + "', " + s.getTime() +", " + s.getShipsKilled() +")";
 
         Statement add = gameConn.createStatement();
 
