@@ -25,7 +25,7 @@ public class game {
     private static long time = 0;
     private static Timer dispTimer;
 
-    public static void startLevel(int levelNumber) throws IOException {
+    public static void startLevel() throws IOException {
         playerShip = new Player(240, 850, 72, 64, "Resources\\PlayerShip.png");
         Enemy enemyShip = new Enemy(240, 0, 72, 64, "Resources\\EnemyShip.png");
         dispScore = new ScoreCounter(50, 20, score);

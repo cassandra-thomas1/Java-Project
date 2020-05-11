@@ -32,6 +32,11 @@ public class FrontEnd extends Application {
         EventHandler<ActionEvent> startGame = e -> {
             gameStart = true;
             primaryStage.setScene(gameScene);
+            try {
+                game.startLevel();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         };
         //menu Background
         ImageView imageView = new ImageView(new Image(new FileInputStream("Resources\\background.png")));
@@ -63,6 +68,7 @@ public class FrontEnd extends Application {
 
         //score screen
         Label scoreMenu = new Label("High Scores");
+        scoreMenu.setStyle("-fx-text-fill: #00ffbb;");
         Button toMenu = new Button("Main Menu");
         toMenu.setOnAction(e->primaryStage.setScene(menuScene));
         VBox scoreOptions = new VBox();
@@ -89,22 +95,19 @@ public class FrontEnd extends Application {
             input.remove(code);
         });
         final long startTime = System.nanoTime();
-        try {
-            game.startLevel(1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
             new AnimationTimer()//game time
             {
-                private long lastUpdate = 0;
-
                 public void handle(long currentTime) {
                     long elapsedTime = currentTime - startTime;
                     int elapsedFrames = Math.toIntExact(elapsedTime / 16_670_000);
+                    long lastUpdate = 0;
                     if (currentTime - lastUpdate >= 16_670_000 && gameStart) {
                         try {
-                            System.out.println(elapsedFrames);
                             game.logic(gc, elapsedFrames, input);
+                            if (!game.running()){
+                                gameStart = false;
+                                primaryStage.setScene(scoreScene);
+                            }
                         } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -112,9 +115,6 @@ public class FrontEnd extends Application {
                 }
             }.start();
         primaryStage.show();
-    }
-    public String getPlayerName(){
-        return playerName;
     }
     public static void main(String[] args) {
         launch(args);
