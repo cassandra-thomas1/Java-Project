@@ -94,7 +94,7 @@ public class FrontEnd extends Application {
         shipsKilledColumn.setMinWidth(100);
         table.getColumns().addAll(playerColumn, scoreColumn, timeColumn, shipsKilledColumn);
 
-        //create and populate vbox
+        //create and populate score vbox
         VBox scoreOptions = new VBox();
         scoreOptions.getChildren().addAll(scoreMenu, table, toMenu);
         scoreOptions.setMaxWidth(400);
