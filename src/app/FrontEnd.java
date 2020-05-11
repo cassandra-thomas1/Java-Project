@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 //this class will call all the methods necessary to make the app run
 //hhhahahha
 public class FrontEnd extends Application {
-    private ArrayList<Score> scores = new ArrayList<Score>();
     private TableView<Score> table = new TableView<>();
     private String playerName;
     private Scene menuScene, scoreScene, gameScene, nameScene;
@@ -30,7 +29,7 @@ public class FrontEnd extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
         //load in database
-        scores = DB.access();
+        ArrayList<Score> scores = DB.access();
 
         primaryStage.setTitle("Space Shooter");
         //main menu button actions
@@ -44,6 +43,11 @@ public class FrontEnd extends Application {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        };
+        EventHandler<ActionEvent> accessScores = e -> {
+            //sort score array
+            //push score array onto table
+            primaryStage.setScene(scoreScene);
         };
         //menu Background
         ImageView imageView = new ImageView(new Image(new FileInputStream("Resources\\background.png")));
@@ -143,7 +147,6 @@ public class FrontEnd extends Application {
         primaryStage.show();
     }
     public static void main(String[] args) throws SQLException {
-
         launch(args);
         DB.close();
     }
