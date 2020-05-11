@@ -1,6 +1,7 @@
 package app;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -103,7 +104,7 @@ public class FrontEnd extends Application {
                     int elapsedFrames = Math.toIntExact(elapsedTime / 16_670_000);
                     if (currentTime - lastUpdate >= 16_670_000 && gameStart) {
                         try {
-                            System.out.println(elapsedFrames);
+
                             game.logic(gc, elapsedFrames, input);
                         } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
@@ -118,5 +119,6 @@ public class FrontEnd extends Application {
     }
     public static void main(String[] args) {
         launch(args);
+
     }
 }
