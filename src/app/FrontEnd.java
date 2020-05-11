@@ -3,6 +3,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -26,7 +28,10 @@ public class FrontEnd extends Application {
     private Scene menuScene, scoreScene, gameScene, nameScene;
     private boolean gameStart = false;
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, SQLException {
+        //load in database
+        scores = DB.access();
+
         primaryStage.setTitle("Space Shooter");
         //main menu button actions
         TextField nameEntry = new TextField();
@@ -124,10 +129,12 @@ public class FrontEnd extends Application {
                                 gameStart = false;
                                 try {
                                     DB.add(new Score(playerName, game.getScore(), game.getTime(), game.getShipsKilled()));
-                                }catch (SQLException e){}
+                                }catch (SQLException e){
+                                    System.out.println("Error Adding to DB");}
+
                                 primaryStage.setScene(scoreScene);
                             }
-                        } catch (IOException | InterruptedException e) {
+                        } catch (IOException | ConcurrentModificationException e) {
                             e.printStackTrace();
                         }
                     }
@@ -135,7 +142,9 @@ public class FrontEnd extends Application {
             }.start();
         primaryStage.show();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+
         launch(args);
+        DB.close();
     }
 }

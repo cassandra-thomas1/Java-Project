@@ -7,6 +7,7 @@ REFORMAT AFTER SETTING UP ABSTRACT CLASSES
 import javafx.scene.canvas.GraphicsContext;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 
@@ -35,7 +36,7 @@ public class game {
     }
 
 
-    static void logic(GraphicsContext gc, long frames, ArrayList<String> input) throws IOException, InterruptedException {
+    static void logic(GraphicsContext gc, long frames, ArrayList<String> input) throws IOException, ConcurrentModificationException {
         if (input.contains("LEFT") && playerShip.getX() > 0)
             playerShip.move(-3);
         if (input.contains("RIGHT") && playerShip.getX() < 468)
