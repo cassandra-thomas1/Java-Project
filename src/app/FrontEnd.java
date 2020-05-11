@@ -3,10 +3,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -14,13 +16,13 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 //this class will call all the methods necessary to make the app run
-//hhhahahha
 public class FrontEnd extends Application {
     private TableView<Score> table = new TableView<>();
     private String playerName;
@@ -30,7 +32,7 @@ public class FrontEnd extends Application {
     public void start(Stage primaryStage) throws IOException, SQLException {
         //load in database
         ArrayList<Score> scores = DB.access();
-
+        ObservableList<Score> oListScores = FXCollections.observableArrayList(scores);
         primaryStage.setTitle("Space Shooter");
         //main menu button actions
         TextField nameEntry = new TextField();
@@ -46,7 +48,9 @@ public class FrontEnd extends Application {
         };
         EventHandler<ActionEvent> accessScores = e -> {
             //sort score array
+            Collections.sort(scores);
             //push score array onto table
+
             primaryStage.setScene(scoreScene);
         };
         //menu Background
@@ -86,12 +90,21 @@ public class FrontEnd extends Application {
         table.setEditable(true);
         TableColumn playerColumn = new TableColumn("Player");
         playerColumn.setMinWidth(100);
+        playerColumn.setCellValueFactory(
+                new PropertyValueFactory<Player, String>("playerName"));
         TableColumn scoreColumn = new TableColumn("Score");
         scoreColumn.setMinWidth(100);
+        scoreColumn.setCellValueFactory(
+                new PropertyValueFactory<Player, String>("score"));
         TableColumn timeColumn = new TableColumn("Time");
         timeColumn.setMinWidth(100);
+        timeColumn.setCellValueFactory(
+                new PropertyValueFactory<Player, String>("time"));
         TableColumn shipsKilledColumn = new TableColumn("Ships Killed");
         shipsKilledColumn.setMinWidth(100);
+        shipsKilledColumn.setCellValueFactory(
+                new PropertyValueFactory<Player, String>("shipsKilled"));
+        table.setItems(oListScores);
         table.getColumns().addAll(playerColumn, scoreColumn, timeColumn, shipsKilledColumn);
         //create and populate vbox
         VBox scoreOptions = new VBox();
