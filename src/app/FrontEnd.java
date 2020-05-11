@@ -93,18 +93,32 @@ public class FrontEnd extends Application {
         TableColumn shipsKilledColumn = new TableColumn("Ships Killed");
         shipsKilledColumn.setMinWidth(100);
         table.getColumns().addAll(playerColumn, scoreColumn, timeColumn, shipsKilledColumn);
+
         //create and populate vbox
         VBox scoreOptions = new VBox();
         scoreOptions.getChildren().addAll(scoreMenu, table, toMenu);
         scoreOptions.setMaxWidth(400);
         scoreOptions.setMaxHeight(200);
+
+       for(Score s : scores){
+            TableRow playerScore = new TableRow();
+
+
+           // scoreOptions.getChildren().add(new HBox(new TextField(s.getPlayerName()), new TextField(Long.toString(s.getScore())),
+            //        new TextField(Long.toString(s.getTime())), new TextField(Long.toString(s.getShipsKilled()))));
+        }
+
         //create and populate stackpane
         StackPane scoreBox = new StackPane();
         StackPane.setAlignment(scoreBox, Pos.CENTER);
         scoreBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         scoreBox.getChildren().addAll(imageView2, scoreOptions);
         //set scene
+
+
         scoreScene = new Scene(scoreBox, 540, 960);
+
+
 
         //
         primaryStage.setScene(menuScene);
