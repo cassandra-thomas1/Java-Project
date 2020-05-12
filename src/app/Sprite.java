@@ -31,7 +31,6 @@ public abstract class Sprite {
     {
         return rectangle.intersects(spriteIn.getBounds());
     }
-        // ^^NEEDS REVISION^^ \\
 
 
     //pre: method is called in game
@@ -47,30 +46,39 @@ public abstract class Sprite {
         }
     }
 
+    //pre: sprite's x position has changed
+    //post: changes its xcoord variable with the parameter
     public void setXCoord(double xCoord) {
         this.xCoord = xCoord;
         rectangle.setX(xCoord);
     }
 
+    //pre: sprite's y position has changed
+    //post: changes its ycoord variable with the parameter
     public void setYCoord(double yCoord) {
         this.yCoord = yCoord;
         rectangle.setY(yCoord);
     }
 
-
+    //pre:  game function is chacking the status of a sprite
+    //post: returns bool value representing if the player is still alive
     public boolean isAlive(){
         return alive;
     }
+
+    //pre:  a collision has been made and kill has been invoked
+    //post: the sprite is no longer alive and it's hitbox is removed from the  game bounds
     public void kill(){
         alive = false;
         rectangle = new Rectangle(-100, -100, 0, 0);
     }
+    //pre: game class needs a trait of this class
+    //post: returns the value representing the trait desired
     public double getX(){return xCoord;}
     public double getY(){return yCoord;}
-
-
     public double getHeight(){return height;}
-    public double getWidth(){return width;}
 
+    //pre: method is invoked
+    //post: returns a value representing the coordinate where the hitbox is located
     private Bounds getBounds(){return rectangle.getBoundsInParent();}
 }
