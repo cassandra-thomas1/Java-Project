@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 
 //this class will call all the methods necessary to make the app run
@@ -56,7 +57,7 @@ public class FrontEnd extends Application {
         ImageView imageView2 = new ImageView(new Image(new FileInputStream("Resources\\background.png")));
 
         Label namePls = new Label("Name: ");
-        namePls.setStyle("-fx-text-fill: #00ffbd;");
+        namePls.setStyle("-fx-text-fill: #00ffbd; -fx-font-weight: bold; -fx-font-size: 20");
         Button toGame = new Button("Start game");
         Button toScore = new Button("High scores");
         toGame.setOnAction(startGame);
@@ -65,6 +66,7 @@ public class FrontEnd extends Application {
         menuOptions.getChildren().addAll(namePls, nameEntry, toGame, toScore);
         menuOptions.setMaxWidth(200);
         menuOptions.setMaxHeight(100);
+        menuOptions.setSpacing(10);
         StackPane menuBox = new StackPane();
         StackPane.setAlignment(menuBox, Pos.CENTER);
         menuBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
@@ -81,19 +83,23 @@ public class FrontEnd extends Application {
         //score screen
         //labels, buttons, and event handlers
         Label scoreMenu = new Label("High Scores");
-        scoreMenu.setStyle("-fx-text-fill: #00ffbd;");
+        scoreMenu.setStyle("-fx-text-fill: #00ffbd; -fx-font-weight: bold; -fx-font-size: 20");
         Button toMenu = new Button("Main Menu");
         toMenu.setOnAction(e->primaryStage.setScene(menuScene));
         //create table
 
-        TextField playerColumn = new TextField("Player");
+        Label playerColumn = new Label("Player");
         playerColumn.setMinWidth(100);
-        TextField scoreColumn = new TextField("Score");
+        playerColumn.setStyle("-fx-font-weight: bold");
+        Label scoreColumn = new Label("Score");
         scoreColumn.setMinWidth(100);
-        TextField timeColumn = new TextField("Time");
+        scoreColumn.setStyle("-fx-font-weight: bold");
+        Label timeColumn = new Label("Time");
         timeColumn.setMinWidth(100);
-        TextField shipsKilledColumn = new TextField("Ships Killed");
+        timeColumn.setStyle("-fx-font-weight: bold");
+        Label shipsKilledColumn = new Label("Ships Killed");
         shipsKilledColumn.setMinWidth(100);
+        shipsKilledColumn.setStyle("-fx-font-weight: bold");
 
 
         //create and populate score vbox
@@ -101,15 +107,25 @@ public class FrontEnd extends Application {
         scoreOptions.getChildren().addAll(scoreMenu, new HBox(playerColumn, scoreColumn, timeColumn, shipsKilledColumn));
         scoreOptions.setMaxWidth(400);
         scoreOptions.setMaxHeight(200);
+        scoreOptions.setBackground(Background.EMPTY);
+        scoreOptions.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
 
 
         int count = 0;      //counter for the loop
         Collections.sort(scores);
         //adds top 5 scores to the scoreboard
         for(Score s : scores){
+            Label user = new Label(s.getPlayerName());
+            Label score = new Label(Long.toString(s.getScore()));
+            Label time = new Label(Long.toString(s.getTime()));
+            Label ships = new Label(Long.toString(s.getShipsKilled()));
+            user.setMinWidth(100);
+            score.setMinWidth(100);
+            time.setMinWidth(100);
+            ships.setMinWidth(100);
+
             if(count < 5) {
-                scoreOptions.getChildren().add(new HBox(new TextField(s.getPlayerName()), new TextField(Long.toString(s.getScore())),
-                        new TextField(Long.toString(s.getTime())), new TextField(Long.toString(s.getShipsKilled()))));
+                scoreOptions.getChildren().add(new HBox(user, score, time, ships));
                 count++;
             }
         }
