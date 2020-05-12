@@ -94,7 +94,7 @@ public class FrontEnd extends Application {
         Label scoreColumn = new Label("Score");
         scoreColumn.setMinWidth(100);
         scoreColumn.setStyle("-fx-font-weight: bold");
-        Label timeColumn = new Label("Time");
+        Label timeColumn = new Label("Time (s)");
         timeColumn.setMinWidth(100);
         timeColumn.setStyle("-fx-font-weight: bold");
         Label shipsKilledColumn = new Label("Ships Killed");
